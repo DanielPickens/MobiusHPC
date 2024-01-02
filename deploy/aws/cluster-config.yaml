@@ -1,0 +1,28 @@
+Region: us-west-1
+Image:
+  Os: ubuntu2004
+HeadNode:
+  InstanceType: t2.medium
+  Networking:
+    SubnetId: subnet-033628d96d018f1eb
+  Ssh:
+    KeyName: forthCluster-keypair
+  CustomActions:
+    OnNodeConfigured:
+      Script: https://raw.githubusercontent.com/danielpickens/mobiushpc/main/aws/install-mobiushpc-requirements.sh
+Scheduling:
+  Scheduler: slurm
+  SlurmQueues:
+  - Name: queue1
+    ComputeResources:
+    - Name: t2medium
+      Instances:
+      - InstanceType: t2.medium
+      MinCount: 2
+      MaxCount: 2
+    Networking:
+      SubnetIds:
+      - subnet-0f0e94ed7bbde6d68
+    CustomActions:
+      OnNodeConfigured:
+        Script: https://raw.githubusercontent.com/danielpickens/mobiushpc/main/aws/install-hpk-requirements.sh
